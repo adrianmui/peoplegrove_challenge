@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
+    "username": "kwhhvcca",
+    "password": "6VVKiscEUlx5eXWKIha2DFeo36ePS9r7",
+    "database": "kwhhvcca",
+    "host": "babar.elephantsql.com",
     "dialect": "mysql"
   },
   "test": {
