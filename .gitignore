@@ -1,7 +1,7 @@
 node_modules/**
 
 # dev config
-config/**
+config/config.js
 
 # misc
 bin/**

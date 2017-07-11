@@ -13,3 +13,24 @@ pg as database
   npm start
 ```
 
+### tasks
+login
+  -login with admin
+  -login with facebook
+user
+  view all tasks by user
+  able to edit tasks within same day
+user:admin
+  view and edit all tasks by user
+routes
+  /login
+  /logout
+  /user/tasks
+  /user/tasks/:id/:edit
+deploy  
+  heroku
+
+ After login user should be able  to log time spent on a particular task. Should be able to add and edit records of current day. He should be able to view past records but should not be able to edit them. Also, provide a admin login which could view all the entries made by each user. 
+- Please use Node.js backend and Angular or React on frontend. 
+- Application should be deployed on Heroku free instance. 
+
