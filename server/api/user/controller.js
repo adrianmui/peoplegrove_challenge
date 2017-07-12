@@ -1,10 +1,12 @@
-var db  = require('./../../config/db');
+const db  = require('./../../config/db');
 let stub = {};
 
-stub.get = function(req, res, next) {
+stub.getOne = function(req, res, next) {
   db.User.findOne({ 
     where: {id: req.params.id}
-  }).then(user => req.user = user)
+  }).then(user => {
+    res.send(JSON.parse(user));
+  })
   .catch((err) => next(err));
 }
 
@@ -19,7 +21,7 @@ stub.post = function(req, res, next) {
 
 stub.destroy = function(req, res, next) {
   db.User.destroy({
-    where: { id: req.user.id  }
+    where: { id: req.params.id  }
   }).then(() => res.redirect('/'))
     .catch((err) => next(err));
 }
