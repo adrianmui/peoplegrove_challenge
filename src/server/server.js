@@ -4,15 +4,16 @@ const app = express();
 
 const config = require('./config/config');
 
+const pagesRouter =require('./pages/router')
 const apiRouter = require('./api/api.js');
 const authRouter = require('./auth/router');
 
 const passport = require('passport');
-const flash    = require('connect-flash');
-const morgan       = require('morgan');
+const flash = require('connect-flash');
+const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
-const bodyParser   = require('body-parser');
-const session      = require('express-session');
+const bodyParser = require('body-parser');
+const session = require('express-session');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,17 +34,6 @@ app.use(express.static(path.join(__dirname, '..', '..', 'public')));
 // routes
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
-
-// home interface page
-app.get('/', function(req, res) {
-    options = { user: req.user}
-    res.render('index', options);
-});
-app.get('/error', function(req, res) {
-    res.render('something messed up');
-});
-app.get('/login', function(req, res) {
-    res.render('login', {message: ''});
-});
+app.use('/', pagesRouter);
 
 module.exports = app;
