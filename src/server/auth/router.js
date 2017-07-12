@@ -4,6 +4,16 @@ const auth = require('./auth');
 
 const User = require('./../api/user/model');
 
+router.get('/facebook', auth.loginRedirect,
+  passport.authenticate('facebook', {scope: 'email', session: false}));
+
+router.get('/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/error' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+});
+
 router.post('/register', auth.loginRedirect, (req, res, next)  => {
   return User.create({email: req.body.email})
     .then((response) => {

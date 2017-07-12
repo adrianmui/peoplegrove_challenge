@@ -22,7 +22,7 @@ app.set('view engine', 'ejs');
 require('./middleware/middleware')(app);
 
 //passport
-app.use(session({ secret: config.secret })); // session secret
+app.use(session({ secret: config.passport.secret })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // flash messages stored in session
@@ -38,6 +38,9 @@ app.use('/auth', authRouter);
 app.get('/', function(req, res) {
     options = { user: req.user}
     res.render('index', options);
+});
+app.get('/error', function(req, res) {
+    res.render('something messed up');
 });
 app.get('/login', function(req, res) {
     res.render('login', {message: ''});

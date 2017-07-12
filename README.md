@@ -17,7 +17,7 @@ pg as database
 ```
   note: * = done
   login
-    -login with admin
+    -login with admin *
     -login with facebook
   user *
     view all tasks by user
@@ -25,8 +25,8 @@ pg as database
   user:admin *
     view and edit all tasks by user
   task *
-    belongs to user
-    has timestamps and can be edited
+    belongs to user *
+    has timestamps and can be edited *
   routes
     /api
       /user
