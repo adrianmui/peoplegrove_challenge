@@ -1,5 +1,5 @@
-const app = require('./server/server');
-const config = require('./server/config/config');
+const app = require('./src/server/server');
+const config = require('./src/server/config/config');
 
 app.listen(config.port);
 

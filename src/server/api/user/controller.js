@@ -1,8 +1,9 @@
-const db  = require('./../../config/db');
+const User = require('./model');
+
 let stub = {};
 
 stub.getOne = function(req, res, next) {
-  db.User.findOne({ 
+  User.findOne({ 
     where: {id: req.params.id}
   }).then(user => {
     res.send(JSON.parse(user));
@@ -11,7 +12,7 @@ stub.getOne = function(req, res, next) {
 }
 
 stub.post = function(req, res, next) {
-  db.User.build({
+  User.build({
     email: req.body.email,
     admin: false
   }).save()
@@ -20,7 +21,7 @@ stub.post = function(req, res, next) {
 };
 
 stub.destroy = function(req, res, next) {
-  db.User.destroy({
+  User.destroy({
     where: { id: req.params.id  }
   }).then(() => res.redirect('/'))
     .catch((err) => next(err));

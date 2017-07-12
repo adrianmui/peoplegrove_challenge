@@ -1,11 +1,10 @@
 const faker = require('faker');
 const _ = require('lodash');
 
-const Sequelize = require('sequelize');
-const db = require('./../server/config/db');
+const db = require('./src/server/config/db');
 
-const User = require('./../models/user')(db, Sequelize);
-const Task = require('./../models/task')(db, Sequelize);
+const User = require('./src/server/api/user/model');
+const Task = require('./src/server/api/task/model');
 
 let sample = [
   {email: 'admin@admin.com', admin: true},
@@ -13,17 +12,15 @@ let sample = [
 ];
 
 // creates 2 user with 1 task each
-db.sync().then(() => {
-  sample.forEach(el =>  {
-    return User.create(el)
+module.exports = db.sync({force: true}).then(() => {
+  sample.forEach(newUser =>  {
+    return User.create(newUser)
       .then(user => {
         let newTask = {
           title: faker.name.jobTitle(), 
           delivery: faker.random.number(5),
           UserId: user.get('id')
         };
-
-        console.log(newTask);
         return Task
           .build(newTask)
           .save()

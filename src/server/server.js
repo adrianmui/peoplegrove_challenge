@@ -5,6 +5,7 @@ const app = express();
 const config = require('./config/config');
 
 const apiRouter = require('./api/api.js');
+const authRouter = require('./auth/router');
 
 const passport = require('passport');
 const flash    = require('connect-flash');
@@ -24,19 +25,18 @@ require('./middleware/middleware')(app);
 app.use(session({ secret: config.secret })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(flash()); // flash messages stored in session
 
 // serving public folder
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, '..', '..', 'public')));
 
 // routes
 app.use('/api', apiRouter);
-// interface routes
-require('./../routes/index')(app, passport);
+app.use('/auth', authRouter);
 
 // home interface page
 app.get('/', function(req, res) {
-    res.render(path.join(__dirname, '..', 'views', 'index'), {title: "John Smith"});
+    res.send(`suh`);
 });
 
 module.exports = app;

@@ -1,10 +1,11 @@
-const db  = require('./../../config/db');
+const Task = require('./../task/model');
+
 let stub = {};
 
 stub.get = function(req, res, next) {
   let filter = (req.user.admin) ? {} : { UserId: req.user.id };
 
-  db.Task.findAll({
+  Task.findAll({
     where: filter
   }).then(tasks => {
       res.send(JSON.parse(tasks))
@@ -13,7 +14,7 @@ stub.get = function(req, res, next) {
 }
 
 stub.post = function(req, res, next) {
-  db.Task.build({
+  Task.build({
     title: req.body.title,
     delivery: req.body.delivery,
     UserId: req.user.id
@@ -23,7 +24,7 @@ stub.post = function(req, res, next) {
 };
 
 stub.getOne = function(req, res, next) {
-  db.Task.findOne({ 
+  Task.findOne({ 
     where: {id: req.params.id}
   }).then(task =>  {
       res.send(JSON.parse(task))
@@ -36,7 +37,7 @@ stub.put = function(req, res, next) {
     title: req.body.title,
     delivery: req.body.delivery
   };
-  db.Task.update(newChanges, {
+  Task.update(newChanges, {
     where: { id: req.params.id }
   }).then(result => {
       res.send(JSON.parse(result))
@@ -45,7 +46,7 @@ stub.put = function(req, res, next) {
 }
 
 stub.destroy = function(req, res, next) {
-  db.Task.destroy({
+  Task.destroy({
     where: { id: req.params.id  }
   }).then(() => res.redirect('/'))
     .catch(err => next(err));
