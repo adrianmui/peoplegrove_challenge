@@ -28,10 +28,23 @@ pg as database
     belongs to user
     has timestamps and can be edited
   routes
-    /login
-    /logout
-    /user/tasks
-    /user/tasks/:id/:edit
+    /api
+      /user
+        POST *
+        GET /:id *
+        DELETE /:id *
+      /tasks
+        GET *
+        POST *
+        GET /:id *
+        DELETE /:id *
+    auth/
+      /register *
+      /login *
+      /logout *
+    /server-side rendering
+      /user/tasks
+      /user/tasks/:id/:edit
   deploy  
     heroku
 ```
