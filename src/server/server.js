@@ -7,6 +7,7 @@ const config = require('./config/config');
 const pagesRouter =require('./pages/router')
 const apiRouter = require('./api/api.js');
 const authRouter = require('./auth/router');
+const reactRouter = require('./pages/reactRouter');
 
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, '..', '..', 'static')));
 // routes
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
+app.use('/spa', reactRouter);
 app.use('/', pagesRouter);
 
 module.exports = app;
