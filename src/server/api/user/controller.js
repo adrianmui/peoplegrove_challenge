@@ -6,7 +6,7 @@ stub.getOne = function(req, res, next) {
   User.findOne({ 
     where: {id: req.params.id}
   }).then(user => {
-    res.send(JSON.parse(user));
+    res.send(user.get({plain : true}));
   })
   .catch((err) => next(err));
 }

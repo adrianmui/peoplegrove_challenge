@@ -3,12 +3,13 @@ const Task = require('./../task/model');
 let stub = {};
 
 stub.get = function(req, res, next) {
-  let filter = (req.user.admin) ? {} : { UserId: req.user.id };
+  
+  let filter = (req.user && req.user.admin) ? { UserId: req.user.id } : {};
 
   Task.findAll({
     where: filter
   }).then(tasks => {
-      res.send(JSON.parse(tasks))
+      res.send(tasks.map( r => r.toJSON()));
     })
     .catch(err => next(err));
 }
@@ -27,7 +28,7 @@ stub.getOne = function(req, res, next) {
   Task.findOne({ 
     where: {id: req.params.id}
   }).then(task =>  {
-      res.send(JSON.parse(task))
+      res.send(task.get({plain : true}));
     })
     .catch(err => next(err));
 }
