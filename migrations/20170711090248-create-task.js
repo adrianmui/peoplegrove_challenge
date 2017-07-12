@@ -14,12 +14,14 @@ module.exports = {
       delivery: {
         type: Sequelize.INTEGER
       },
-      userId: {
+      UserId: {
         type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        allowNull: false,
         references: {
           model: 'Users',
           key: 'id'
-        },
+        }
       },
       createdAt: {
         allowNull: false,

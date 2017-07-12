@@ -5,16 +5,17 @@ module.exports = function(sequelize, DataTypes) {
   const Task = sequelize.define('Task', {
     title: DataTypes.STRING,
     delivery: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
+    UserId: DataTypes.INTEGER
   });
 
-  Task.belongsTo(User);
+  Task.associate = function(models) {
+    Task.belongTo(models.User, {
+      onDelete: "CASCADE",
+      foreignKey: {
+        allowNull: false
+      }
+    })
+  }
 
   return Task;
 };

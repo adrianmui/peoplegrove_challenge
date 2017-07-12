@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const config = require('./config');
 
 // Create shared instance to be used across models
-let db = new Sequelize(config.db.databaseUrl, config.db.databaseOptions);
+let db = new Sequelize(config.db.url, config.db.options);
 
 // testing connection
 db.authenticate()
