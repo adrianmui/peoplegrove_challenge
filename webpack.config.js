@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'browser', 'AppClient.js'),
+  entry: path.join(__dirname, 'src', 'browser', 'App.jsx'),
   output: {
     path: path.join(__dirname, 'static', 'js'),
     filename: 'bundle.js'
