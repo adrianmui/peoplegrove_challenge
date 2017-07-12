@@ -10,7 +10,7 @@ auth.loginRedirect = function(req, res, next) {
   // if (req.user) return res.status(401).json(
   //   {status: 'You are already logged in'});
   if (req.user) {
-    res.redirect('/spa')
+    
   }
   return next();
 };

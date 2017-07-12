@@ -29,7 +29,7 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // flash messages stored in session
 
 // serving public folder
-app.use(express.static(path.join(__dirname, '..', '..', 'public')));
+app.use(express.static(path.join(__dirname, '..', '..', 'static')));
 
 // routes
 app.use('/api', apiRouter);
