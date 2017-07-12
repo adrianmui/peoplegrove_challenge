@@ -1,0 +1,36 @@
+<!-- views/index.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>Node Authentication</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <style>
+        body { padding-top:80px;}
+        .btn-facebook {
+          color: #f7f7f7;
+          background-color: #3b5998;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="jumbotron text-center">
+        <h1><span class="fa fa-star"></span> PeopleGrove Tasks</h1>
+
+        <% if (user) { %>
+          <a href="/api/users/<%=user.id%>" class="btn btn-default"><span class="fa fa-user"></span> See Self</a>
+          <a href="/api/tasks/" class="btn btn-default"><span class="fa fa-user"></span> See All Tasks</a>
+          <a href="/auth/logout" class="btn btn-danger"><span class="fa fa-user"></span> Logout</a>
+        <% } else { %>
+          <p>Login with: </p>
+          <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
+          <a href="/signup" class="btn btn-facebook"><span class="fa fa-facebook"></span> Login with Facebook</a>
+        <% } %>
+        
+    </div>
+
+</div>
+</body>
+</html>

@@ -16,6 +16,7 @@ module.exports = db.sync({force: true}).then(() => {
   sample.forEach(newUser =>  {
     return User.create(newUser)
       .then(user => {
+        console.log(`@@@\n    user ${user.get('email')} has been create \n@@@`);
         let newTask = {
           title: faker.name.jobTitle(), 
           delivery: faker.random.number(5),
@@ -25,7 +26,7 @@ module.exports = db.sync({force: true}).then(() => {
           .build(newTask)
           .save()
           .then(task => {
-            console.log(`Task created ${task.get({plain: true})}`);
+            console.log(`@@@\n    task ${task.get('title')} has been created \n@@@`);
           })
           .catch(err => console.log(err));
      });

@@ -36,7 +36,11 @@ app.use('/auth', authRouter);
 
 // home interface page
 app.get('/', function(req, res) {
-    res.send(`suh`);
+    options = { user: req.user}
+    res.render('index', options);
+});
+app.get('/login', function(req, res) {
+    res.render('login', {message: ''});
 });
 
 module.exports = app;
