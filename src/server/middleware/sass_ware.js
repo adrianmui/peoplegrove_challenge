@@ -6,7 +6,6 @@ winston.level = 'debug';
 
 const src = path.join(__dirname, '../../sass');
 const dest = path.join(__dirname, '../../../static/styles')
-console.log(`src: ${src}\ndest: ${dest}`);
 
 module.exports = sassMiddleware({
   src: src,

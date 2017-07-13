@@ -22213,26 +22213,13 @@
 
 	var _AppRoot2 = _interopRequireDefault(_AppRoot);
 
-	var _Landing = __webpack_require__(244);
-
-	var _Landing2 = _interopRequireDefault(_Landing);
-
-	var _List = __webpack_require__(245);
-
-	var _List2 = _interopRequireDefault(_List);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var AppRouter = function AppRouter() {
 	  return _react2.default.createElement(
 	    _reactRouter.Router,
 	    { history: _reactRouter.browserHistory },
-	    _react2.default.createElement(
-	      _reactRouter.Route,
-	      { path: 'spa', component: _AppRoot2.default },
-	      _react2.default.createElement(_reactRouter.Route, { path: 'home', component: _Landing2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: 'list', component: _List2.default })
-	    )
+	    _react2.default.createElement(_reactRouter.Route, { path: 'spa', component: _AppRoot2.default })
 	  );
 	};
 
@@ -27488,13 +27475,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _List = __webpack_require__(245);
-
-	var _List2 = _interopRequireDefault(_List);
-
-	var _Task = __webpack_require__(246);
+	var _Task = __webpack_require__(245);
 
 	var _Task2 = _interopRequireDefault(_Task);
+
+	var _TaskForm = __webpack_require__(246);
+
+	var _TaskForm2 = _interopRequireDefault(_TaskForm);
 
 	var _axios = __webpack_require__(247);
 
@@ -27519,6 +27506,8 @@
 	    _this.state = {
 	      tasks: []
 	    };
+
+	    _this.onChildChange = _this.onChildChange.bind(_this);
 	    return _this;
 	  }
 
@@ -27527,12 +27516,19 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
+	      console.log('Landing componentDidMount');
 	      _axios2.default.get('http://localhost:8081/api/tasks').then(function (res) {
 	        var tasks = res.data.map(function (res) {
 	          return res;
 	        });
 	        _this2.setState({ tasks: tasks });
 	      });
+	    }
+	  }, {
+	    key: 'onChildChange',
+	    value: function onChildChange(a, b) {
+	      console.log(a, b);
+	      debugger;
 	    }
 	  }, {
 	    key: 'render',
@@ -27552,6 +27548,11 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'row' },
+	          _react2.default.createElement(_TaskForm2.default, { onChange: this.onChildChange })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'page-header col-xs-8' },
@@ -27563,7 +27564,7 @@
 	          { className: 'row' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col-xs-3' },
+	            { className: 'col-xs-12' },
 	            this.state.tasks.map(function (task) {
 	              return _react2.default.createElement(_Task2.default, { details: task });
 	            })
@@ -27584,85 +27585,7 @@
 /* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var List = function (_Component) {
-	  _inherits(List, _Component);
-
-	  function List(props, context) {
-	    _classCallCheck(this, List);
-
-	    var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props, context));
-
-	    _this.state = _this.context.data || { items: [] };
-	    return _this;
-	  }
-
-	  _createClass(List, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.fetchList();
-	    }
-	  }, {
-	    key: 'fetchList',
-	    value: function fetchList() {
-	      var _this2 = this;
-
-	      fetch('http://jsonplaceholder.typicode.com/users').then(function (res) {
-	        return res.json();
-	      }).then(function (data) {
-	        _this2.setState({
-	          items: data
-	        });
-	      }).catch(function (err) {
-	        console.log(err);
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'ul',
-	        null,
-	        this.state.items.map(function (item) {
-	          return _react2.default.createElement(
-	            'li',
-	            { key: item.id },
-	            item.name
-	          );
-	        })
-	      );
-	    }
-	  }]);
-
-	  return List;
-	}(_react.Component);
-
-	exports.default = List;
-
-/***/ }),
-/* 246 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -27677,39 +27600,214 @@
 	var Task = function Task(props) {
 	  var _props$details = props.details,
 	      id = _props$details.id,
+	      UserId = _props$details.UserId,
 	      title = _props$details.title,
-	      delivery = _props$details.delivery;
+	      delivery = _props$details.delivery,
+	      createdAt = _props$details.createdAt;
 
-
-	  var styles = {
-	    padding: '0x',
-	    margin: '10x 0px'
-	  };
 
 	  return _react2.default.createElement(
-	    'div',
-	    { className: 'panel panel-primary col-sm-12', style: styles },
+	    "div",
+	    { className: "panel panel-primary col-sm-4" },
 	    _react2.default.createElement(
-	      'div',
-	      { className: 'panel-heading col-sm-12' },
+	      "div",
+	      { className: "panel-heading col-sm-12" },
+	      id,
+	      ": ",
 	      title
 	    ),
 	    _react2.default.createElement(
-	      'div',
-	      { className: 'panel-body col-sm-12' },
-	      'delivery difficulty ',
+	      "div",
+	      { className: "panel-body col-sm-12" },
+	      "delivery difficulty ",
 	      delivery
 	    ),
 	    _react2.default.createElement(
-	      'div',
-	      { className: 'panel-footer col-sm-12' },
-	      'user_id: ',
-	      id
+	      "div",
+	      { className: "panel-footer col-sm-12" },
+	      _react2.default.createElement(
+	        "span",
+	        null,
+	        "user_id: ",
+	        UserId,
+	        " "
+	      ),
+	      _react2.default.createElement(
+	        "span",
+	        null,
+	        "created: ",
+	        createdAt
+	      )
 	    )
 	  );
 	};
 
 	exports.default = Task;
+
+/***/ }),
+/* 246 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _axios = __webpack_require__(247);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TaskForm = function (_Component) {
+	  _inherits(TaskForm, _Component);
+
+	  function TaskForm(props) {
+	    _classCallCheck(this, TaskForm);
+
+	    var _this = _possibleConstructorReturn(this, (TaskForm.__proto__ || Object.getPrototypeOf(TaskForm)).call(this, props));
+
+	    console.log(_this);
+	    _this.state = {
+	      title: '',
+	      delivery: ''
+	    };
+
+	    _this.handleClearForm = _this.handleClearForm.bind(_this);
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    // this.createTask = this.createTask.bind(this);
+	    return _this;
+	  }
+
+	  _createClass(TaskForm, [{
+	    key: 'handleClearForm',
+	    value: function handleClearForm(event) {
+	      event.preventDefault();
+	      this.setState({ title: '', delivery: '' });
+	    }
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      var newState = this.state;
+	      newState[event.target.name] = event.target.value;
+	      this.setState(newState);
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(event) {
+	      var _this2 = this;
+
+	      event.preventDefault();
+	      this.createTask(this.state).then(function (task) {
+	        _this2.props.onChildChange('new task', task);
+	      });
+	    }
+	  }, {
+	    key: 'createTask',
+	    value: function createTask(details) {
+	      return _axios2.default.post('http://localhost:8081/api/tasks', details);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'panel panel-danger col-sm-4' },
+	        this.state.title,
+	        this.state.delivery,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'panel-heading col-sm-12' },
+	          'New/Edit Task'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'panel-body col-sm-12' },
+	          _react2.default.createElement(
+	            'form',
+	            { onSubmit: this.handleSubmit },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'form-group' },
+	              _react2.default.createElement(
+	                'label',
+	                { className: 'form-label', 'for': 'title' },
+	                'Title'
+	              ),
+	              _react2.default.createElement('textarea', {
+	                className: 'form-control',
+	                name: 'title',
+	                id: 'title',
+	                rows: '1',
+	                value: this.state.title,
+	                onChange: this.handleChange,
+	                placeholder: this.state.title })
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'form-group' },
+	              _react2.default.createElement(
+	                'label',
+	                { className: 'form-label', 'for': 'delivery' },
+	                'Delivery Difficulty'
+	              ),
+	              _react2.default.createElement(
+	                'select',
+	                { className: 'form-control',
+	                  name: 'delivery',
+	                  id: 'delivery',
+	                  value: this.state.delivery,
+	                  onChange: this.handleChange },
+	                [].concat(_toConsumableArray(Array(5))).map(function (x, i) {
+	                  return _react2.default.createElement(
+	                    'option',
+	                    null,
+	                    ' ',
+	                    i + 1,
+	                    ' '
+	                  );
+	                })
+	              )
+	            ),
+	            _react2.default.createElement('input', {
+	              type: 'submit',
+	              className: 'btn btn-primary float-right',
+	              value: 'Submit' }),
+	            _react2.default.createElement(
+	              'button',
+	              {
+	                className: 'btn btn-link float-left',
+	                onClick: this.handleClearForm },
+	              'Clear form'
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return TaskForm;
+	}(_react.Component);
+
+	;
+
+	exports.default = TaskForm;
 
 /***/ }),
 /* 247 */

@@ -13,7 +13,7 @@ module.exports = function(app) {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use(cookieParser());
-  app.use(sass);
+  // app.use(sass);
   app.use(cors());
   app.use(errorHandler)
   app.use(override());

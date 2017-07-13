@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import List from './List';
 import Task from './Task';
+import TaskForm from './TaskForm';
 import axios from 'axios';
 
 class Landing extends Component {
@@ -10,9 +10,12 @@ class Landing extends Component {
     this.state = {
       tasks: []
     };
+
+    this.onChildChange = this.onChildChange.bind(this);
   }
 
   componentDidMount() {
+    console.log('Landing componentDidMount');
     axios.get('http://localhost:8081/api/tasks')
       .then(res => {
         const tasks = res.data.map( res => res);
@@ -20,24 +23,43 @@ class Landing extends Component {
       });
   }
 
+  onChildChange(a, b) {
+    console.log(a , b);
+    debugger;
+  }
+
   render() {
     return (
       <div className="container">
+        
         <div className="row">
           <div className="page-header col-xs-8">
             Create New Task
           </div>
         </div>
+
+        <div className="row">
+          
+          <TaskForm onChange={this.onChildChange}/>
+          
+        </div>
+        
+
+  
         <div className="row">
           <div className="page-header col-xs-8">
             Tasks that belong to Me
           </div>
         </div>
+
         <div className="row">
-          <div className="col-xs-3">
+          <div className="col-xs-12">
             { 
               this.state.tasks.map( task => 
-              <Task details={task}/> )
+                
+                <Task details={task}/> 
+              
+              )
             }
           </div>
         </div>

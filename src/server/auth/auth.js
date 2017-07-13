@@ -2,7 +2,7 @@ let auth = {};
 // route middleware to make sure a user is logged in
 auth.isLoggedIn = function(req, res, next) {
     console.log(`are you athenticated: ${req.isAuthenticated()}`);
-    console.log(`user is ${req.user}`)
+    console.log(`user is ${req.user.get('email')}`)
     if (req.isAuthenticated())
         return next();
     res.redirect('/');

@@ -5,8 +5,6 @@ let stub = {};
 stub.get = function(req, res, next) {
   let filter = (req.user.admin) ? {} : { UserId: req.user.id };
 
-  console.log(`filter is : ${filter}`);
-
   Task.findAll({
     where: filter
   }).then(tasks => {
@@ -16,12 +14,16 @@ stub.get = function(req, res, next) {
 }
 
 stub.post = function(req, res, next) {
+  console.log(`req is ${req}`);
   Task.build({
     title: req.body.title,
     delivery: req.body.delivery,
     UserId: req.user.id
   }).save()
-    .then(() => res.redirect('/'))
+    .then(task => {
+      console.log(`task is ${task}`);
+      res.send(task.get({plain : true}));
+    })
     .catch(err => next(err));
 };
 

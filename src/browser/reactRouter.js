@@ -26,9 +26,9 @@ DataProvider.childContextTypes = {
 /** React Magic */
 router.get('/spa', (req, res, next) => {
   match({routes: routes, location: req.url}, (error, redirectLocation, renderProps) => {
-    console.log(`routes, ${routes[0]}`)
-    console.log(`redirectLocation, ${redirectLocation}`)
-    console.log(`renderProps, ${renderProps}`)
+    // console.log(`routes, ${routes[0]}`)
+    // console.log(`redirectLocation, ${redirectLocation}`)
+    // console.log(`renderProps, ${renderProps}`)
     
     if (error) {
       next(err);
