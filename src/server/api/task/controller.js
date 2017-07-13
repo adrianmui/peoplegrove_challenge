@@ -3,15 +3,16 @@ const Task = require('./../task/model');
 let stub = {};
 
 stub.get = function(req, res, next) {
-  
-  let filter = (req.user && req.user.admin) ? { UserId: req.user.id } : {};
+  let filter = (req.user.admin) ? {} : { UserId: req.user.id };
+
+  console.log(`filter is : ${filter}`);
 
   Task.findAll({
     where: filter
   }).then(tasks => {
       res.send(tasks.map( r => r.toJSON()));
     })
-    .catch(err => next(err));
+    .catch(err => ( console.log(`some herror`),next(err)));
 }
 
 stub.post = function(req, res, next) {

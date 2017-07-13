@@ -25,6 +25,7 @@
         <% if (user) { %>
           <a href="/api/users/<%=user.id%>" class="btn btn-default"><span class="fa fa-user"></span> See Self</a>
           <a href="/api/tasks/" class="btn btn-default"><span class="fa fa-user"></span> See All Tasks</a>
+          <a href="/spa" class="btn btn-active btn-primary"><span class="fa fa-code"></span> React</a>
           <a href="/auth/logout" class="btn btn-danger"><span class="fa fa-user"></span> Logout</a>
         <% } else { %>
           <p>Login with: </p>

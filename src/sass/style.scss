@@ -1,0 +1,11 @@
+.panel {
+  margin: 10px 0px;
+  padding: 0px; 
+};    
+
+.navbar {
+  background-color: #428bca;
+  &-brand {
+    color: white;
+  }
+}

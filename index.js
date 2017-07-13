@@ -1,3 +1,5 @@
+require('babel-register');
+
 const app = require('./src/server/server');
 const config = require('./src/server/config/config');
 

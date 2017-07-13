@@ -3,11 +3,12 @@ const path = require('path');
 const app = express();
 
 const config = require('./config/config');
+const auth = require('./auth/auth');
 
 const pagesRouter =require('./pages/router')
 const apiRouter = require('./api/api.js');
 const authRouter = require('./auth/router');
-const reactRouter = require('./pages/reactRouter');
+const reactRouter = require('./../browser/reactRouter');
 
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -33,9 +34,10 @@ app.use(flash()); // flash messages stored in session
 app.use(express.static(path.join(__dirname, '..', '..', 'static')));
 
 // routes
-app.use('/api', apiRouter);
-app.use('/auth', authRouter);
-app.use('/spa', reactRouter);
 app.use('/', pagesRouter);
+app.use('/api', auth.isLoggedIn, apiRouter);
+app.use('/auth', authRouter);
+app.use('/', auth.isLoggedIn, reactRouter);
+
 
 module.exports = app;

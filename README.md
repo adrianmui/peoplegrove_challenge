@@ -20,13 +20,13 @@ pg as database
     -login with admin *
     -login with facebook
   user *
-    view all tasks by user
-    able to edit tasks within same day
+    view all tasks by user * 
+    able to edit tasks within same day *doing now
   user:admin *
-    view and edit all tasks by user
+    view and edit all tasks by user * doing now
   task *
     belongs to user *
-    has timestamps and can be edited *
+    has timestamps and can be edited * doing now
   routes
     /api
       /user
@@ -43,8 +43,8 @@ pg as database
       /login *
       /logout *
     /server-side rendering
-      /user/tasks
-      /user/tasks/:id/:edit
+      /user/tasks *
+      /user/tasks/:id/:edit *doing now
   deploy  
     heroku
 ```

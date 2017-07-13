@@ -30,6 +30,8 @@ router.post('/register', auth.loginRedirect, (req, res, next)  => {
 });
 
 router.post('/login', auth.loginRedirect, (req, res, next) => {
+
+
   passport.authenticate('local', (err, user, info) => {
     console.log(`adrian snoping ${JSON.stringify(user.get({plain: true}))}`)
     if (err) { handleResponse(res, 500, 'error'); }
