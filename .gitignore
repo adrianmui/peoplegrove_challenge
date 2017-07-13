@@ -1,7 +1,7 @@
 node_modules/**
 
 # dev config
-server/config/config.js
+src/server/config/config.js
 config/config.json
 
 # misc
