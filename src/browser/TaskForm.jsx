@@ -31,6 +31,7 @@ class TaskForm extends Component {
     event.preventDefault();
     this._createTask(this.state)
       .then(task => {
+        console.log('sending data to parent');
         this.props.onChildChange('new task' , task);
       });
     

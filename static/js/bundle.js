@@ -27527,9 +27527,13 @@
 	    }
 	  }, {
 	    key: 'onChildChange',
-	    value: function onChildChange(a, b) {
-	      console.log(a, b);
-	      debugger;
+	    value: function onChildChange(a, data) {
+	      if (a == 'new task') {
+	        var newState = this.state;
+	        var newStack = this.state.tasks;
+	        newStack.push(data.data);
+	        this.setState(newState);
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -27549,7 +27553,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'row' },
-	          _react2.default.createElement(_TaskForm2.default, { onChange: this.onChildChange })
+	          _react2.default.createElement(_TaskForm2.default, { onChildChange: this.onChildChange })
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -27729,6 +27733,7 @@
 
 	      event.preventDefault();
 	      this._createTask(this.state).then(function (task) {
+	        console.log('sending data to parent');
 	        _this2.props.onChildChange('new task', task);
 	      });
 	    }
