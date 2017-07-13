@@ -7,7 +7,7 @@ class TaskForm extends Component {
     console.log(this);
     this.state = {
       title: '',
-      delivery: ''
+      delivery: 1
     };
 
     this.handleClearForm = this.handleClearForm.bind(this);
@@ -29,14 +29,14 @@ class TaskForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.createTask(this.state)
+    this._createTask(this.state)
       .then(task => {
         this.props.onChildChange('new task' , task);
       });
     
   }
 
-  createTask(details) {
+  _createTask(details) {
     return axios.post('http://localhost:8081/api/tasks',
     details);
   }
@@ -44,11 +44,8 @@ class TaskForm extends Component {
   render() {
     return (
       <div className="panel panel-danger col-sm-4">
-         {this.state.title}
-          {this.state.delivery}
         <div className="panel-heading col-sm-12">
           New/Edit Task
-         
         </div>
         <div className="panel-body col-sm-12">
           <form onSubmit={this.handleSubmit}>
@@ -73,7 +70,9 @@ class TaskForm extends Component {
                 onChange={this.handleChange}>
                   { 
                   [...Array(5)].map((x, i) => 
-                    <option> {i+1} </option>)
+                    <option value={i}
+                      selected={this.state.delivery === i}> {i} 
+                    </option>)
                   }
               </select>
             </div>

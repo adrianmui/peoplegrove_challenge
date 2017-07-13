@@ -20,6 +20,7 @@ module.exports = db.sync({force: true}).then(() => {
         let newTask = {
           title: faker.name.jobTitle(), 
           delivery: faker.random.number(5),
+          createdAt: faker.date.random(),
           UserId: user.get('id')
         };
         return Task

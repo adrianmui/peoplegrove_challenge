@@ -8,7 +8,8 @@ class Landing extends Component {
     super(props);
 
     this.state = {
-      tasks: []
+      tasks: [],
+      editing: undefined
     };
 
     this.onChildChange = this.onChildChange.bind(this);

@@ -9,7 +9,7 @@ class AppRoot extends Component {
     return (
       <div>
         <nav className="navbar">
-          <a href="#" className="navbar-brand">PeopleGrove React</a>
+          <a href="/" className="navbar-brand">PeopleGrove React</a>
         </nav>
         <Landing />
         {this.props.children}

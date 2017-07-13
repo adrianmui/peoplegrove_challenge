@@ -27440,7 +27440,7 @@
 	          { className: 'navbar' },
 	          _react2.default.createElement(
 	            'a',
-	            { href: '#', className: 'navbar-brand' },
+	            { href: '/', className: 'navbar-brand' },
 	            'PeopleGrove React'
 	          )
 	        ),
@@ -27504,7 +27504,8 @@
 	    var _this = _possibleConstructorReturn(this, (Landing.__proto__ || Object.getPrototypeOf(Landing)).call(this, props));
 
 	    _this.state = {
-	      tasks: []
+	      tasks: [],
+	      editing: undefined
 	    };
 
 	    _this.onChildChange = _this.onChildChange.bind(_this);
@@ -27585,7 +27586,7 @@
 /* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -27594,6 +27595,10 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _dateCoverter = __webpack_require__(273);
+
+	var _dateCoverter2 = _interopRequireDefault(_dateCoverter);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27605,38 +27610,47 @@
 	      delivery = _props$details.delivery,
 	      createdAt = _props$details.createdAt;
 
+	  var isNew = (0, _dateCoverter2.default)().isDayOld(createdAt);
+	  var date = (0, _dateCoverter2.default)().prettyPrint(createdAt);
+
+	  console.log(isNew, date);
 
 	  return _react2.default.createElement(
-	    "div",
-	    { className: "panel panel-primary col-sm-4" },
+	    'div',
+	    { className: 'panel panel-primary col-sm-4 ' + (isNew ? '' : 'blur-me') },
 	    _react2.default.createElement(
-	      "div",
-	      { className: "panel-heading col-sm-12" },
+	      'div',
+	      { className: 'panel-heading col-sm-12' },
 	      id,
-	      ": ",
+	      ': ',
 	      title
 	    ),
 	    _react2.default.createElement(
-	      "div",
-	      { className: "panel-body col-sm-12" },
-	      "delivery difficulty ",
-	      delivery
+	      'div',
+	      { className: 'panel-body col-sm-12' },
+	      'delivery difficulty ',
+	      _react2.default.createElement(
+	        'code',
+	        null,
+	        delivery
+	      )
 	    ),
 	    _react2.default.createElement(
-	      "div",
-	      { className: "panel-footer col-sm-12" },
+	      'div',
+	      { className: 'panel-footer col-sm-12' },
 	      _react2.default.createElement(
-	        "span",
+	        'span',
 	        null,
-	        "user_id: ",
+	        'user_id: ',
 	        UserId,
-	        " "
+	        ' '
 	      ),
 	      _react2.default.createElement(
-	        "span",
-	        null,
-	        "created: ",
-	        createdAt
+	        'span',
+	        { className: 'btn btn-md btn  float-right ' + (isNew ? 'btn-success' : 'disabled btn-warning') },
+	        'created: ',
+	        date,
+	        ' '
 	      )
 	    )
 	  );
@@ -27685,7 +27699,7 @@
 	    console.log(_this);
 	    _this.state = {
 	      title: '',
-	      delivery: ''
+	      delivery: 1
 	    };
 
 	    _this.handleClearForm = _this.handleClearForm.bind(_this);
@@ -27714,23 +27728,23 @@
 	      var _this2 = this;
 
 	      event.preventDefault();
-	      this.createTask(this.state).then(function (task) {
+	      this._createTask(this.state).then(function (task) {
 	        _this2.props.onChildChange('new task', task);
 	      });
 	    }
 	  }, {
-	    key: 'createTask',
-	    value: function createTask(details) {
+	    key: '_createTask',
+	    value: function _createTask(details) {
 	      return _axios2.default.post('http://localhost:8081/api/tasks', details);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this3 = this;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'panel panel-danger col-sm-4' },
-	        this.state.title,
-	        this.state.delivery,
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'panel-heading col-sm-12' },
@@ -27777,10 +27791,10 @@
 	                [].concat(_toConsumableArray(Array(5))).map(function (x, i) {
 	                  return _react2.default.createElement(
 	                    'option',
-	                    null,
+	                    { value: i,
+	                      selected: _this3.state.delivery === i },
 	                    ' ',
-	                    i + 1,
-	                    ' '
+	                    i
 	                  );
 	                })
 	              )
@@ -29337,6 +29351,34 @@
 	  };
 	};
 
+
+/***/ }),
+/* 273 */
+/***/ (function(module, exports) {
+
+	"use strict";
+
+	function DateConverter() {
+	  var stub = {};
+
+	  stub.isDayOld = function (date) {
+	    var curr = new Date(date);
+	    var yesterday = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
+
+	    /** true if it is less than a day */
+	    return curr.getTime() > yesterday.getTime();
+	  };
+
+	  stub.prettyPrint = function (date) {
+	    var dt = new Date(date);
+	    // return `${dt.getDate()}.${dt.getMonth()+1}.${dt.getFullYear()}`
+	    return stub.isDayOld(date) ? "TODAY" : "BEFORE TODAY";
+	  };
+
+	  return stub;
+	}
+
+	module.exports = DateConverter;
 
 /***/ })
 /******/ ]);
