@@ -30,8 +30,6 @@ router.post('/register', auth.loginRedirect, (req, res, next)  => {
 });
 
 router.post('/login', auth.loginRedirect, (req, res, next) => {
-
-
   passport.authenticate('local', (err, user, info) => {
     console.log(`adrian snoping ${JSON.stringify(user.get({plain: true}))}`)
     if (err) { handleResponse(res, 500, 'error'); }
@@ -51,7 +49,12 @@ router.get('/logout', auth.loginRequired, (req, res, next) => {
 });
 
 function handleResponse(res, code, statusMsg) {
-  res.status(code).json({status: statusMsg});
+  // res.status(code).json({status: statusMsg});
+  if (statusMsg == 'success') {
+    res.redirect('/');
+  }
+  next(new Error(statusMsg));
+  
 }
 
 module.exports = router;

@@ -24,9 +24,13 @@ class Landing extends Component {
       });
   }
 
-  onChildChange(a, b) {
-    console.log(a , b);
-    debugger;
+  onChildChange(a, data) {
+    if (a == 'new task') {
+      let newState = this.state;
+      let newStack = this.state.tasks;
+      newStack.push(data.data);
+      this.setState(newState);
+    }
   }
 
   render() {
@@ -40,12 +44,8 @@ class Landing extends Component {
         </div>
 
         <div className="row">
-          
-          <TaskForm onChange={this.onChildChange}/>
-          
+          <TaskForm onChildChange={this.onChildChange}/>
         </div>
-        
-
   
         <div className="row">
           <div className="page-header col-xs-8">
